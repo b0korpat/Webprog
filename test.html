@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Dark Mode Toggle</title>
+    <style>
+        body.dark-mode {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Toggleable Dark Mode</h1>
+    <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+
+    <script>
+        // Function to toggle dark mode
+        function toggleDarkMode() {
+            const body = document.body;
+            body.classList.toggle('dark-mode');
+        }
+    </script>
+</body>
+</html>
