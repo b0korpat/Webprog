@@ -14,16 +14,10 @@
         <div class="orarend">
             <h1>Órarend</h1>
 
-            <h1>Toggleable Dark Mode</h1>
-    <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
-
-    <script>
-        // Function to toggle dark mode
-        function toggleDarkMode() {
-            const body = document.getElementsByClassName("orarend");
-            body.classList.toggle('dark-mode');
-        }
-    </script>
+            <input type="checkbox" id="bgToggle" style="display: none;">
+            <label for="bgToggle">
+                <img_for="bgToggle" src="img/moon.png" alt="">
+            </label>
             <hr>
             <div class="main">
                 <div class="hetkoznapok">
@@ -180,12 +174,12 @@
                     <div class="szombat napok">
 
                         <h2>Szombat</h2>
-                        
+
                         <div class="ora">
                             <h3>DTK</h3>
                             <p>8:00-24:00</p>
                         </div>
-                      
+
 
                     </div>
                     <div class="vasarnap napok">
@@ -202,6 +196,7 @@
             </div>
         </div>
     </div>
+    <script src="js/script.js"></script>
 </body>
 
 </html>
