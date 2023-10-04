@@ -3,50 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Change Image with Spinning Animation on Checkbox Click</title>
     <style>
-        /* CSS for the spinning animation */
-        .spin {
-            animation: spin 2s linear infinite;
+        /* Add CSS styles for the rotating image */
+        #rotate-image {
+            width: 100px;
+            height: 100px;
+            transition: transform 0.5s;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        /* Hide the checkbox */
+        #checkbox {
+            display: none;
+        }
+
+        /* Style the label to look like a checkbox */
+        .checkbox-label {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: #ccc;
+            cursor: pointer;
+        }
+
+        /* When the checkbox is checked, rotate the image and change its source */
+        #checkbox:checked + .checkbox-label #rotate-image {
+            transform: rotate(45deg);
         }
     </style>
 </head>
 <body>
-    <input type="checkbox" id="spinCheckbox">
-    <label for="spinCheckbox">Toggle Image</label>
-
-    <img id="spinningImage" src="moon.png" alt="Image 1">
-    <img id="spinningImage2" src="sun.png" alt="Image 2">
+    <!-- Create a checkbox and label -->
+    <input type="checkbox" id="checkbox">
+    <label class="checkbox-label" for="checkbox">
+        <!-- Add an image that will rotate when the checkbox is checked -->
+        <img id="rotate-image" src="moon.png" alt="Image">
+    </label>
 
     <script>
-        const spinCheckbox = document.getElementById('spinCheckbox');
-        const spinningImage = document.getElementById('spinningImage');
-        const spinningImage2 = document.getElementById('spinningImage2');
-        let isImage1Shown = true;
+        // JavaScript code to toggle the image source when the checkbox is clicked
+        const checkbox = document.getElementById('checkbox');
+        const rotateImage = document.getElementById('rotate-image');
 
-        // Event listener for checkbox change
-        spinCheckbox.addEventListener('change', () => {
-            // Toggle between the two images
-            isImage1Shown = !isImage1Shown;
-
-            if (spinCheckbox.checked) {
-                // If checkbox is checked, apply the spinning animation to the shown image
-                if (isImage1Shown) {
-                    spinningImage.classList.add('spin');
-                    spinningImage2.classList.remove('spin');
-                } else {
-                    spinningImage2.classList.add('spin');
-                    spinningImage.classList.remove('spin');
-                }
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                rotateImage.src = 'sun.png';
             } else {
-                // If checkbox is unchecked, remove the spinning animation
-                spinningImage.classList.remove('spin');
-                spinningImage2.classList.remove('spin');
+                rotateImage.src = 'moon.png';
             }
         });
     </script>

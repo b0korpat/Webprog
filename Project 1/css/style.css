@@ -4,15 +4,9 @@
     transition: all 100ms;
 }
 
-.spin {
-    animation: spin 1s ;
+#darkModeToggle:checked + #darkModeLabel #darkModeIcon {
+    transform: rotate(45deg);
 }
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
 
 #darkModeIcon {
     width: 50px;
