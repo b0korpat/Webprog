@@ -4,6 +4,15 @@
     transition: all 100ms;
 }
 
+@keyframes slideUP {
+    0% {
+      transform: translateY(3%);
+    }
+    100% {
+      transform: translateY(0%);
+    }
+  }
+
 #darkModeToggle:checked + #darkModeLabel #darkModeIcon {
     transform: rotate(45deg);
 }
@@ -41,6 +50,7 @@
 
 
 .orarend {
+    animation: 0.5s slideUP;
     width: 90vw;
     height: fit-content;
     align-self: center;
