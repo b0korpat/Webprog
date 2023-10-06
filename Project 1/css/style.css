@@ -13,6 +13,10 @@
     }
   }
 
+
+#darkModeToggle{
+    display: none;
+}
 #darkModeToggle:checked + #darkModeLabel #darkModeIcon {
     transform: rotate(45deg);
 }
