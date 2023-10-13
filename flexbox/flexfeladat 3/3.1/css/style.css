@@ -1,0 +1,44 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+.page{
+    width: 100vw;
+    height: 100vh;
+}
+
+
+.cyans{
+    height: 50px;
+    width: 100%;
+    background-color: purple;
+    display: flex;
+
+    justify-content: flex-start; 
+    align-items: center;
+}
+
+.cyan{
+    height: 20px;
+    width: 100px;
+    margin-left: 20px;
+    background-color: aqua;
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
+}
+.yellow{
+    background-color: yellow;
+    width: 75%;
+    height: 94.8vh;
+}
+
+.green{
+    background-color: green;
+    width: 25%;
+    height: 94.8vh;
+}

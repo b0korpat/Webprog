@@ -1,0 +1,19 @@
+.container{
+    width: 800px;
+    height: 300px;
+    display: flex;
+    flex-direction: row;
+    background-color: yellow;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.item{
+    width: 100px;
+    height: 100px;
+}
+
+.purple{
+    background-color: purple;
+}
