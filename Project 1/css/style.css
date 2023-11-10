@@ -4,16 +4,6 @@
     transition: all 100ms;
 }
 
-@keyframes slideUP {
-    0% {
-      transform: translateY(3%);
-    }
-    100% {
-      transform: translateY(0%);
-    }
-  }
-
-
 #darkModeToggle{
     display: none;
 }
