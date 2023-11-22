@@ -1,56 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        /* Add CSS styles for the rotating image */
-        #rotate-image {
-            width: 100px;
-            height: 100px;
-            transition: transform 0.5s;
-        }
-
-        /* Hide the checkbox */
-        #checkbox {
-            display: none;
-        }
-
-        /* Style the label to look like a checkbox */
-        .checkbox-label {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            background-color: #ccc;
-            cursor: pointer;
-        }
-
-        /* When the checkbox is checked, rotate the image and change its source */
-        #checkbox:checked + .checkbox-label #rotate-image {
-            transform: rotate(45deg);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Matching Game</title>
+  <link rel="stylesheet" href="test.css">
 </head>
 <body>
-    <!-- Create a checkbox and label -->
-    <input type="checkbox" id="checkbox">
-    <label class="checkbox-label" for="checkbox">
-        <!-- Add an image that will rotate when the checkbox is checked -->
-        <img id="rotate-image" src="moon.png" alt="Image">
-    </label>
+  <div class="card" data-index="0" data-ertek="A" onclick="flipCard(this)">
+    <div class="card-inner">
+      <div class="card-front">A</div>
+      <div class="card-back"></div>
+    </div>
+  </div>
+  <!-- Add more cards as needed -->
 
-    <script>
-        // JavaScript code to toggle the image source when the checkbox is clicked
-        const checkbox = document.getElementById('checkbox');
-        const rotateImage = document.getElementById('rotate-image');
-
-        checkbox.addEventListener('change', function() {
-            if (this.checked) {
-                rotateImage.src = 'sun.png';
-            } else {
-                rotateImage.src = 'moon.png';
-            }
-        });
-    </script>
+  <script src="test.js"></script>
 </body>
 </html>
