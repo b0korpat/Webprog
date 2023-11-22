@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,11 +9,31 @@
     <title>Memória Játék</title>
     
 </head>
+
 <body>
     <div class="container">
-        <div class="title"></div>
+        <div class="bg"></div>
+        <div id="title" class="menu">
+            <img src="img/logo.png" alt="">
+        </div>
+
+        <div id="startBT" class="menu" onclick="menuHide()">
+            <img src="img/start.png" alt="">
+        </div>
 
 
+        <div id="fullscreen" onclick="toggleFullscreen()">
+            <img src="img/fullscreen.png">
+            <p>Teljes képernyő</p>
+        </div>
     </div>
+
+
+    <div id="game">
+        <div id="cards">
+        </div>
+    </div>
+    <script src="js/script.js"></script>
 </body>
+
 </html>
