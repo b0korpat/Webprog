@@ -13,4 +13,13 @@ function totalPayOut(obj){
     return amount
 }
 
+
+function display(obj){
+    for (let person in obj){
+        console.log(`${person} ${obj[person]}`)
+    }
+}
+
+
 console.log(totalPayOut(fizetes))
+display(fizetes)

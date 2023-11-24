@@ -1,0 +1,11 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 2fr);
+    grid-template-rows: repeat(2, 2fr);
+}
+.element{
+    background-color: blue;
+    padding: 10px;
+    height: 100px;
+    width: 100px;
+}
