@@ -1,7 +1,8 @@
 .grid {
     display: grid;
-    grid-template-columns: repeat(2, 120px);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template: 
+            "a a a" 40px
+            "b c c" 40px
     gap: 10px;
 }
 .element{
