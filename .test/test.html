@@ -1,20 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Card Matching Game</title>
-  <link rel="stylesheet" href="test.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persistent Text Box</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #textbox {
+            width: 300px;
+            height: 50px;
+            font-size: 16px;
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
-  <div class="card" data-index="0" data-ertek="A" onclick="flipCard(this)">
-    <div class="card-inner">
-      <div class="card-front">A</div>
-      <div class="card-back"></div>
-    </div>
-  </div>
-  <!-- Add more cards as needed -->
 
-  <script src="test.js"></script>
+    <input type="text" id="textbox" placeholder="Type something...">
+
+    <script>
+        // Check if there is a saved text in local storage
+        document.getElementById('textbox').value = localStorage.getItem('savedText') || '';
+
+        // Save the text to local storage on input change
+        document.getElementById('textbox').addEventListener('input', function () {
+            localStorage.setItem('savedText', this.value);
+        });
+    </script>
+
 </body>
 </html>
