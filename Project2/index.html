@@ -22,8 +22,8 @@
             <img src="img/start.png" alt="">
         </div>
         
-        <div id="highestScore" class="menu">Rekord: 00:00:00</div>
-        <div id="stopwatch">00:00:00</div>
+        <p id="highestScore" class="menu">Rekord: <span id="record">---</span></p>
+        <div id="stopwatch">0:00</div>
 
         <div id="fullscreen" onclick="toggleFullscreen()">
             <img src="img/fullscreen.png">
@@ -37,6 +37,7 @@
         </div>
     </div>
     <script src="js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </body>
 
 </html>
