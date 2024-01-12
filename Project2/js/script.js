@@ -2,55 +2,50 @@ const gameContainer = document.body
 const menuElement = document.getElementsByClassName('menu')
 const game = document.getElementById('game')
 const cardsDiv = document.getElementById('cards')
-const stopwatch = document.getElementById('stopwatch')
-const highestscore = "00:00:00"
-var currentTime
-document.getElementById('highestScore').innerHTML = highestscore
 
-let stopwatchInterval;
-let seconds = 0, minutes = 0, hours = 0;
+let timer;
+let startTime;
+let totalStoppedTime = 0;
+let leastStoppedTime = Infinity;
 
-function startStopwatch() {
-  stopwatchInterval = setInterval(updateStopwatch, 1000);
-}
+document.addEventListener('DOMContentLoaded', () => {
+  const savedRecord = localStorage.getItem('stopwatchRecord');
+  if (savedRecord !== null) {
+    leastStoppedTime = parseInt(savedRecord, 10);
+    document.getElementById('record').textContent = formatTime(leastStoppedTime);
+  }
+});
 
-function stopStopwatch() {
-  clearInterval(stopwatchInterval);
-}
 
-function resetStopwatch() {
-  clearInterval(stopwatchInterval);
-  seconds = 0;
-  minutes = 0;
-  hours = 0;
-  updateStopwatch();
+function startStop() {
+  if (timer) {
+    clearInterval(timer);
+    const stoppedTime = Date.now() - startTime;
+    totalStoppedTime += stoppedTime;
+
+    if (stoppedTime < leastStoppedTime) {
+      leastStoppedTime = stoppedTime;
+      document.getElementById('record').textContent = formatTime(leastStoppedTime);
+
+      localStorage.setItem('stopwatchRecord', leastStoppedTime.toString());
+    }
+  } else {
+    startTime = Date.now();
+    timer = setInterval(updateStopwatch, 1000);
+  }
 }
 
 function updateStopwatch() {
-  seconds++;
-  if (seconds === 60) {
-    seconds = 0;
-    minutes++;
-    if (minutes === 60) {
-      minutes = 0;
-      hours++;
-    }
-  }
-
-  const formattedTime = pad(hours) + ':' + pad(minutes) + ':' + pad(seconds);
-  currentTime = formattedTime; 
-  document.getElementById('stopwatch').innerText = formattedTime;
+  const elapsed = Date.now() - startTime - totalStoppedTime;
+  document.getElementById('stopwatch').textContent = formatTime(elapsed);
 }
 
-function pad(value) {
-  return value < 10 ? '0' + value : value;
+function formatTime(milliseconds) {
+  const seconds = Math.floor(milliseconds / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const formattedSeconds = String(seconds % 60).padStart(2, '0');
+  return `${minutes}:${formattedSeconds}`;
 }
-
-
-
-
-
-
 
 
 function toggleFullscreen() {
@@ -68,7 +63,7 @@ function toggleFullscreen() {
 }
 
 function menuHide() {
-  startStopwatch();
+  startStop();
   const menuElements = document.getElementsByClassName("menu");
   Array.from(menuElements).forEach(function (menuElement) {
     menuElement.classList.add("hidden");
@@ -135,10 +130,10 @@ function flipCard(cardContainer) {
 
 
     if (flipCardsValue.length >= 2) {
+      document.querySelectorAll('.card-container').forEach(element => {
+        element.dataset.flipped = 1;
+      });
       setTimeout(() => {
-        document.querySelectorAll('.card-container').forEach(element => {
-          element.dataset.flipped = 1;
-        });
         if (flipCardsValue[0] === flipCardsValue[1]) {
           console.log("jo")
           console.log(flipCardsValue)
@@ -183,19 +178,34 @@ function flipCard(cardContainer) {
 
 
         }
+        if (score >= 6) {
+          startStop();
+          var duration = 5 * 1000;
+          var animationEnd = Date.now() + duration;
+          var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+          function randomInRange(min, max) {
+            return Math.random() * (max - min) + min;
+          }
+
+          var interval = setInterval(function () {
+            var timeLeft = animationEnd - Date.now();
+
+            if (timeLeft <= 0) {
+              return clearInterval(interval);
+            }
+
+            var particleCount = 50 * (timeLeft / duration);
+            // since particles fall down, start a bit higher than random
+            confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
+            confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
+          }, 250);
+          setTimeout(() => {
+            location.reload();
+          }, 5000);
+        }
       }, 700);
     }
-  }
-
-  if (score >= 6) {
-    setTimeout(() => {
-      stopStopwatch();
-      if (highestscore < currentTime) {
-        highestscore = currentTime;
-
-      }
-      alert("Nyertél!")
-    }, 2000);
   }
 }
 

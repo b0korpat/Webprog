@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+<<<<<<< HEAD
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JavaScript Event példád</title>
@@ -18,9 +19,39 @@ padding: 10px 20px;
 font-size: 16px;
 cursor: pointer;
 } </style>
+=======
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fade Transition on Page Load</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            opacity: 0; /* Set initial opacity to 0 */
+            transition: opacity 0.5s ease-in-out; /* Add transition for opacity */
+        }
+
+        #content {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .fade-in {
+            opacity: 1 !important;
+        }
+    </style>
+>>>>>>> 9e8e729d939bd560c48d5eccd89bf2baba76ca37
 </head>
 
 <body>
+<<<<<<< HEAD
 <button class="btn">Nyomj meg!</button>
 
 <script>
@@ -44,5 +75,36 @@ console.log("második event handler")
 }
 </script>
 
+=======
+    <div id="content">
+        <h1>Random Text</h1>
+        <p>This is some random text on the page.</p>
+        <button id="reloadButton">Reload Page</button>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Add 'fade-in' class to body after content has loaded
+            document.body.classList.add('fade-in');
+
+            // Function to reload the page seamlessly
+            function reloadPageSeamlessly() {
+                // Set opacity to 0 for a seamless transition
+                document.body.style.opacity = 0;
+
+                // Wait for the transition to complete
+                setTimeout(function () {
+                    // Reload the page
+                    location.reload();
+                }, 500); // Adjust based on your transition duration
+            }
+
+            // Listen for a click event on the reload button
+            document.getElementById("reloadButton").addEventListener("click", function () {
+                // Call the reload function when the button is clicked
+                reloadPageSeamlessly();
+            });
+        });
+    </script>
+>>>>>>> 9e8e729d939bd560c48d5eccd89bf2baba76ca37
 </body>
 </html>

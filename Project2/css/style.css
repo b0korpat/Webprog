@@ -4,6 +4,11 @@
   padding: 0;
 }
 
+#fade-container {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
 .hidden {
   opacity: 0;
 }
@@ -14,6 +19,7 @@ body {
   padding: 0;
   height: 100%;
 }
+
 
 body {
   overflow: hidden;
@@ -202,7 +208,8 @@ body {
   transform: rotateY(180deg);
 }
 
-#highestScore, #stopwatch{
+#highestScore,
+#stopwatch {
   position: absolute;
   top: 90%;
   color: white;
@@ -210,7 +217,7 @@ body {
   font-size: 60px;
 }
 
-#stopwatch{
+#stopwatch {
   display: none;
   position: absolute;
   top: 90%;
