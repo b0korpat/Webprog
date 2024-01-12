@@ -1,39 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Persistent Text Box</title>
-    <style>
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript Event példád</title>
+<style>
 
-        #textbox {
-            width: 300px;
-            height: 50px;
-            font-size: 16px;
-            padding: 10px;
-        }
-    </style>
+* {
+margin: 0;
+padding: 0;
+}
+
+.btn {
+margin: 10px;
+padding: 10px 20px;
+font-size: 16px;
+cursor: pointer;
+} </style>
 </head>
+
 <body>
+<button class="btn">Nyomj meg!</button>
 
-    <input type="text" id="textbox" placeholder="Type something...">
+<script>
+const button = document.querySelector(".btn")
 
-    <script>
-        // Check if there is a saved text in local storage
-        document.getElementById('textbox').value = localStorage.getItem('savedText') || '';
+// Event listener
+button.addEventListener("click", function() {
+console.log("első event listener")
+})
 
-        // Save the text to local storage on input change
-        document.getElementById('textbox').addEventListener('input', function () {
-            localStorage.setItem('savedText', this.value);
-        });
-    </script>
+button.addEventListener("click", () => {
+console.log("második event listener")
+})
+
+// Event handler
+button.onclick = () => {
+console.log("első event handler")
+}
+button.onclick = () => {
+console.log("második event handler")
+}
+</script>
 
 </body>
 </html>
