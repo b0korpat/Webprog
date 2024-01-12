@@ -14,11 +14,14 @@
             let num = array.map((x) => x ** 3);
             var sum = 0
 
-            for (var element of num){
-                if (element % 2 === 1) { sum = sum + element }
+            for (var element of num) {
+                console.log(element)
+                if (isNaN(element))
+                    return undefined
+                if (element % 2 != 0) { sum = sum + element}
             }
-            console.log(sum)
-           
+            return sum
+
         }
     </script>
 </body>
