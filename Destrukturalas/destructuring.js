@@ -51,11 +51,11 @@ let student = {
 };
 
 
-function printStudentInfo({ name, age, grade, subjects } = student) {
+function printStudentInfo({ name, age, grade, subjects }) {
     console.log("Name: " + name)
     console.log("Age: " + age)
     console.log("Grade: " + grade)
     console.log("Subjects: " + subjects)
 }
 
-printStudentInfo();
+printStudentInfo(student);
