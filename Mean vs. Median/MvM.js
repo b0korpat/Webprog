@@ -1,6 +1,6 @@
 function meanVsMedian(numbers) {
     let mean = numbers.reduce((x, y) => x + y) / numbers.length;
-    numbers.sort
+    numbers.sort((a,b) => a-b);
     let median = numbers[Math.floor(numbers.length / 2)]
     console.log(mean)
     console.log(median)
