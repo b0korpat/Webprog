@@ -1,0 +1,60 @@
+* {
+    margin: 0;
+    padding: 0;
+    color: #32292F;
+}
+body{
+    background-color: #ffffff;
+    width: 100vw;
+    height: 100vh;
+}
+#loadGif{
+    position: absolute;
+    top: 35vh;
+    right: 45vw;
+    transform: scale(2);
+}
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+}
+
+
+h1 {
+    font-size: 50px;
+}
+
+#selectUser{
+    display: none;
+    width:300px;
+    height: 390px;   
+}
+
+select{
+    width: 300px;
+        padding: 5px;
+        font-size: 16px;
+        border: 2px solid black;
+        border-radius: 10px;
+}
+
+#selectUser option{
+    width:300px; 
+    font-size: 30px;
+}
+
+caption{
+    border: 2px solid black;
+    border-radius: 10px;
+}
+table{
+    background-color: #99E1D9;
+    border: 3px solid #70ABAF;
+    border-radius: 15px;
+    margin-top: -15vh;
+    width: 25vw;
+    height: 20vh;
+}
