@@ -36,7 +36,7 @@ function UsersLoad() {
 
 function GetUserData() {
     var u = users[document.getElementById("selection").options[document.getElementById("selection").selectedIndex].getAttribute("data-id")];
-    userData.innerHTML = `<table><tr><td>Id:</td><td>${u.id}</td></tr><tr><td>Email:</td><td>${u.email}</td></tr><tr><td>Telefonszám:</td><td>${u.phone}</td></tr><tr><td>Cím:</td><td>${u.address.zipcode} ${u.address.city}, ${u.address.street} ${u.address.suite}</td></tr><tr><td>Geolokáció:</td><td>(ez valamiért nem jó)</td></tr></table>`
+    userData.innerHTML = `<table><tr><td>Id:</td><td>${u.id}</td></tr><tr><td>Email:</td><td>${u.email}</td></tr><tr><td>Telefonszám:</td><td>${u.phone}</td></tr><tr><td>Cím:</td><td>${u.address.zipcode} ${u.address.city}, ${u.address.street} ${u.address.suite}</td></tr><tr><td>Geolokáció:</td><td>${u.geovc}</td></tr></table>`
 
 
 }
