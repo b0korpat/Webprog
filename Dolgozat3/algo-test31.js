@@ -8,7 +8,7 @@ function removeFirstAndLast(string) {
         s.splice(s.length - 1, 1);
     
         return s.join(',');
-        return s;
+
     } else {
         return null;
     }

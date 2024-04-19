@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Courses</title>
+  <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+  <div class="container">
+    <div id="coursesDIV" class="courses-container"></div>
+    <button id="newCourseButton" class="button-style">Add New Course</button>
+  </div>
+
+  <script>
+    // Add your JavaScript code here
+    const url = "https://vvri.pythonanywhere.com/api/courses";
+    const coursesDIV = document.getElementById("coursesDIV");
+    let courses = [];
+
+    function fetchDataAndDrawCourses() {
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          courses = data;
+          drawCourses();
+        })
+        .catch(error => console.error('Error fetching data:', error));
+    }
+
+    function drawCourses() {
+      let ki = "";
+      courses.forEach(course => {
+        ki += `<div id="button" class="button-style" style="background-color: ${getRandomColor()};"><sblack class="course-name">${course.name}</span></div>`;
+      });
+      coursesDIV.innerHTML = ki;
+    }
+
+    function getRandomColor() {
+      var letters = '0123456789ABCDEF';
+      var color = '#';
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    fetchDataAndDrawCourses();
+
+    var newCourseButton = document.getElementById("newCourseButton");
+    newCourseButton.addEventListener("click", function() {
+      var newCourseInput = document.createElement("input");
+      newCourseInput.type = "text";
+      newCourseInput.placeholder = "Enter course name";
+      coursesDIV.appendChild(newCourseInput);
+      var submitButton = document.createElement("button");
+      submitButton.innerHTML = "Submit";
+      submitButton.id = "submitButton";
+      submitButton.addEventListener("click", function() {
+        var newCourseName = newCourseInput.value;
+        fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            name: newCourseName
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          courses.push(data);
+          drawCourses();
+          newCourseInput.value = '';
+        })
+        .catch(error => console.error('Error creating new course:', error));
+      });
+      coursesDIV.appendChild(submitButton);
+    });
+  </script>
+</body>
+</html>
