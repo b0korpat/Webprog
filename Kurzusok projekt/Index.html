@@ -6,18 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Courses</title>
   <link rel="stylesheet" href="CSS/style.css">
-  <style>
-    #modal {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #f8f9fa;
-      padding: 20px;
-      border-radius: 5px;
-    }
-  </style>
+
 </head>
 
 <body>
@@ -26,29 +15,28 @@
 
     <button id="newCourseButton" onclick="showModal()">+</button>
     <div id="modal" class="modal">
-
+      <span class="closeButton" onclick="closeModal('modal')">✖</span>
       <h1>Új kurzos hozzáadása</h1>
 
       <label for="courseNameInput">Adja meg a kurzus nevét</label>
-      <input type="text" id="courseNameInput" placeholder="Enter course name">
-      <p class="error" id="courseNameERROR"></p>      
-      <button id="submitButton" onclick="submitCourse();" disabled>Submit</button>
-      <button onclick="closeModal()">Close</button>
+      <input type="text" id="courseNameInput" placeholder="Kurzus neve....">
+      <p class="error" id="courseNameERROR"></p>
+      <button id="submitButton" onclick="submitCourse();" disabled><span>&#43;</span></button>
     </div>
 
 
-    <div id="editModal" class="edit-modal">
+    <div id="editModal" class="modal">
+      <span class="closeButton" onclick="closeModal('editModal')">✖</span>
       <h1>Szerkesztés</h1>
       <div>
-        <input type="text" id="NameInput" placeholder="Enter student name">
-        <button id="addStudentButton" onclick="addStudent()">Hozzáadás</button>
+        <input type="text" id="NameInput" placeholder="Adja meg a diák nevét">
+        <button id="addStudentButton" onclick="addStudent()"><span>&#43;</span></button>
         <p class="error" id="studentNameERROR"></p>
       </div>
 
-      <table >
+      <table>
         <tbody id="studentList"></tbody>
       </table>
-      <button onclick="closeEditModal()">Close</button>
     </div>
     <script src="JS/script.js"></script>
 </body>

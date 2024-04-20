@@ -1,177 +1,126 @@
-
 const coursesDIV = document.getElementById("coursesDIV");
 let courses = [];
 let students = [];
-var currentCourse = 0;
+let currentCourse = 0;
 
-function fetchDataAndDrawCourses() {
+const fetchDataAndDrawCourses = () => {
   fetch("https://vvri.pythonanywhere.com/api/courses")
-    .then(response => response.json())
-    .then(data => {
+    .then((response) => response.json())
+    .then((data) => {
       courses = data;
-      let ki = "";
-      courses.forEach(course => {
-        ki += `<div id="button" class="button-style" onclick="showEditModal(this)" data-id=${course.id} )}"><span class="course-name">${course.name}</span></div>`;
-      });
-      coursesDIV.innerHTML = ki;
+      coursesDIV.innerHTML = courses
+        .map(
+          (course) =>
+            `<div id="button" class="button-style" onclick="showEditModal(this)" data-id=${course.id}><span class="course-name">${course.name}</span></div>`
+        )
+        .join("");
     })
-    .catch(error => console.error('Error fetching data:', error));
-}
-fetchDataAndDrawCourses();
-
-
-
-function showEditModal(courseDiv) {
-  students = [];
-
-  const modal = document.getElementById('editModal');
-  modal.style.display = 'flex';
-
-  console.log(courseDiv.getAttribute('data-id'));
-  currentCourse = courseDiv.getAttribute('data-id')
-
-  document.getElementById('studentList').innerHTML = '';
-
-
-  fetch(`https://vvri.pythonanywhere.com/api/courses/${currentCourse}`)
-    .then(response => response.json())
-    .then(data => {
-      console.log(data.students);
-      students = data.students;
-      console.log(students);
-
-      const studentTable = document.getElementById('studentList');
-      studentTable.innerHTML = '';
-
-      students.forEach(student => {
-        const newRow = `<tr><td>${student.name}</td><td><button onclick="deleteStudent(this)" data-sid="${student.id}">Delete</button></td></tr>`;
-        studentTable.innerHTML += newRow;
-      });
-    })
-
+    .catch((error) => console.error("Error fetching data:", error));
 };
 
-
-function deleteStudent(button) {
-  const studentId = button.dataset.sid;
-
-  fetch(`https://vvri.pythonanywhere.com/api/students/${studentId}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
-  })
-    .then(response => {
-      if (response.ok) {
-        console.log(`Student deleted successfully.`);
-        const row = button.parentNode.parentNode;
-        row.parentNode.removeChild(row);
-        fetchDataAndDrawCourses();
-      } else {
-        throw new Error('Failed to delete student.');
-      }
-    })
-    .catch(error => {
-      console.error('Error deleting student:', error);
+const showEditModal = (courseDiv) => {
+  closeModal('modal');
+  students = [];
+  const modal = document.getElementById("editModal");
+  modal.style.display = "flex";
+  currentCourse = courseDiv.dataset.id;
+  document.getElementById("studentList").innerHTML = "";
+  fetch(`https://vvri.pythonanywhere.com/api/courses/${currentCourse}`)
+    .then((response) => response.json())
+    .then((data) => {
+      students = data.students;
+      document.getElementById("studentList").innerHTML = students
+        .map(
+          (student) =>
+            `<tr><td>${student.name}</td><td><span class="delete-button" onclick="deleteStudent(this)" data-sid="${student.id}">&#128465;</span></td></tr>`
+        )
+        .join("");
     });
-}
-function closeEditModal() {
-  const modal = document.getElementById('editModal');
-  modal.style.display = 'none';
-}
+    document.getElementById("NameInput").value = "";
+};
 
-function addStudent() {
-  const studentName = document.getElementById('NameInput').value;
-  console.log(studentName);
+const deleteStudent = (button) => {
+  const studentId = button.dataset.sid;
+  fetch(`https://vvri.pythonanywhere.com/api/students/${studentId}`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
+  })
+    .then((response) =>
+      response.ok
+        ? button.closest("tr").remove()
+        : Promise.reject("Failed to delete student.")
+    )
+    .then(fetchDataAndDrawCourses)
+    .catch((error) => console.error("Error deleting student:", error));
+};
+
+const addStudent = () => {
+  const studentName = document.getElementById("NameInput").value.trim();
+  const studentNameError = document.getElementById("studentNameERROR");
 
   if (studentName) {
-    let isDuplicateStudent = false;
-    const rows = document.getElementById('studentList').getElementsByTagName('tr');
-    for (let i = 0; i < rows.length; i++) {
-      const cell = rows[i].getElementsByTagName('td')[0];
-      if (cell && cell.innerText === studentName || studentName == "" || studentName == null || studentName == undefined || studentName == " ") {
-        isDuplicateStudent = true;
-        break;
-      }
-    }
-    if (isDuplicateStudent) {
-      document.getElementById('NameInput').parentNode.querySelector('.error').innerText = 'This student name already exists in the table.';
-      document.getElementById('submitButton').disabled = false;
-    } else {
-      students.push(studentName)
-      const newRow = `<tr><td>${studentName}</td><td><button onclick="deleteStudent(this)">Delete</button></td></tr>`;
-      document.getElementById('studentList').innerHTML += newRow;
-      document.getElementById('submitButton').disabled = false;
-      document.getElementById('studentNameERROR').innerText = '';
-
-      fetch('https://vvri.pythonanywhere.com/api/students', {
-        method: 'POST',
+    const isDuplicateStudent = students.some(
+      (student) => student.name === studentName
+    );
+    if (!isDuplicateStudent) {
+      students.push(studentName);
+      fetch("https://vvri.pythonanywhere.com/api/students", {
+        method: "POST",
         headers: {
-          'accept': 'application/json',
-          'Content-Type': 'application/json'
+          accept: "application/json",
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          name: document.getElementById('NameInput').value,
-          course_id: currentCourse
-        })
+        body: JSON.stringify({ name: studentName, course_id: currentCourse }),
       })
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.error('Error:', error));
-    };
-
+        .then((response) => response.json())
+        .then((data) => {
+          const newRow = `<tr><td>${data.name}</td><td><span class="delete-button" onclick="deleteStudent(this)" data-sid="${data.id}">&#128465;</span></td></tr>`;
+          document.getElementById("studentList").innerHTML += newRow;
+        })
+        .catch((error) => console.error("Error:", error));
+      studentNameError.innerText = "";
+    } else {
+      studentNameError.innerText = "This student already exists in the course.";
+    }
+  } else {
+    studentNameError.innerText = "";
   }
 };
 
-function showModal() {
-  document.getElementById('submitButton').disabled = false;
-  document.getElementById('courseNameERROR').innerText = '';
-  document.getElementById('courseNameInput').value = '';
-  document.getElementById('courseNameInput').parentNode.querySelector('.error').innerText = '';
-  document.getElementById('modal').style.display = 'flex';
-  const modal = document.getElementById('modal');
-  modal.style.display = 'flex';
-}
-function closeModal() {
+const showModal = () => {
+  closeModal('editModal')
+  document.getElementById("submitButton").disabled = false;
+  document.getElementById("courseNameERROR").innerText = "";
+  document.getElementById("courseNameInput").value = "";
+  document
+    .getElementById("courseNameInput")
+    .parentNode.querySelector(".error").innerText = "";
+  document.getElementById("modal").style.display = "flex";
+};
 
-  const modal = document.getElementById('modal');
-  modal.style.display = 'none';
-} function submitCourse() {
-  const courseName = document.getElementById('courseNameInput').value;
-  //validate
-  let isDuplicateCourse = false;
-  for (let i = 0; i < courses.length; i++) {
-    if (courses[i].name === courseName || courseName == "" || courseName == null || courseName == undefined || courseName == " ") {
-      isDuplicateCourse = true;
-      break;
-    }
-  }
-  if (isDuplicateCourse) {
-    document.getElementById('courseNameInput').parentNode.querySelector('.error').innerText = 'This course name already exists.';
-    return;
+const closeModal = modalId => document.getElementById(modalId).style.display = 'none';
+
+const submitCourse = () => {
+  const courseName = document.getElementById("courseNameInput").value.trim();
+  if (courseName && !courses.some((course) => course.name === courseName)) {
+    fetch("https://vvri.pythonanywhere.com/api/courses", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: courseName }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Course posted successfully:", data, data.id);
+        fetchDataAndDrawCourses();
+      })
+      .catch((error) => console.error("Error posting course:", error));
   } else {
-    document.getElementById('courseNameERROR').innerText = '';
+    document
+      .getElementById("courseNameInput")
+      .parentNode.querySelector(".error").innerText =
+      "This course name already exists.";
   }
-
-
-  // Post the course
-  fetch("https://vvri.pythonanywhere.com/api/courses", {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      name: courseName
-    })
-  })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Course posted successfully:', data, data.id);
-      fetchDataAndDrawCourses();
-    })
-    .catch(error => console.error('Error posting course:', error));
-
-  courses = [];
   closeModal();
-}
+};
+
+fetchDataAndDrawCourses();
