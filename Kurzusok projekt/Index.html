@@ -11,6 +11,11 @@
 
 <body>
   <div class="container">
+    <div id="search">
+      <input type="text" id="searchInput" placeholder="Keresés..." />
+      <span onclick="searchCourses(document.getElementById('searchInput').value)">🔍</span>
+    </div>
+
     <div id="coursesDIV" class="courses-container"></div>
 
     <button id="newCourseButton" onclick="showModal()">+</button>
@@ -27,7 +32,8 @@
 
     <div id="editModal" class="modal">
       <span class="closeButton" onclick="closeModal('editModal')">✖</span>
-      <h1>Szerkesztés</h1>
+      <h1 id="modalTitle">Szerkesztés</h1>
+
       <div>
         <input type="text" id="NameInput" placeholder="Adja meg a diák nevét">
         <button id="addStudentButton" onclick="addStudent()"><span>&#43;</span></button>
