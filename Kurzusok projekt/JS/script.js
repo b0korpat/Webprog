@@ -22,25 +22,28 @@ const drawCourses = (coursesToDraw) => {
     .join("");
 };
 
-const searchCourses = (query) => {
-  closeModal("modal");
-  closeModal("editModal");
-  const lowerCaseQuery = query.toLowerCase();
-  const filteredCourses = courses.filter((course) => {
-    const courseNameMatch = "";
-    try{
-     courseNameMatch = course.name.toLowerCase().includes(lowerCaseQuery);}
-    catch{}
+const search = () => {
+  const lowerCaseQuery = document.getElementById("searchInput").value.trim().toLowerCase();
+  console.log(searchInput);
+  if (searchInput) {
+    closeModal("modal");
+    closeModal("editModal");
 
-    const studentNameMatch = course.students.some(student =>
-      student.name.toLowerCase().includes(lowerCaseQuery)
-    );
+    const filteredCourses = courses.filter((course) => {
+      const courseNameMatch = course.name.toLowerCase().includes(lowerCaseQuery);
+      const studentNameMatch = course.students.some(student =>
+        student.name.toLowerCase().includes(lowerCaseQuery)
+      );
 
-    return courseNameMatch || studentNameMatch;
-  });
+      return courseNameMatch || studentNameMatch;
+    });
 
-  drawCourses(filteredCourses);
+    drawCourses(filteredCourses);
+  } else {
+    fetchDataAndDrawCourses();
+  }
 };
+
 
 const showEditModal = (courseDiv) => {
   closeModal('modal');
