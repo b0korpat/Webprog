@@ -1,0 +1,168 @@
+:root {
+  --primary-background: #F4EAD3; /* Linen */
+  --secondary-background: #E9C46A; /* Maize */
+  --tertiary-background: #2A9D8F; /* Sea green */
+  --quaternary-background: #264653; /* Dark slate gray */
+  --primary-text: #264653; /* Dark slate gray */
+  --secondary-text: #E76F51; /* Terra cotta */
+  --tertiary-text: #F4EAD3; /* Linen */
+  --quaternary-text: #2A9D8F; /* Sea green */
+  --button-background: #E76F51; /* Terra cotta */
+  --button-hover: #F4EAD3; /* Linen */
+  --button-text: #264653; /* Dark slate gray */
+  --icon-background: #2A9D8F; /* Sea green */
+  --icon-hover: #E9C46A; /* Maize */
+  --border-color: #264653; /* Dark slate gray */
+  --error-text: #E76F51; /* Terra cotta */
+}
+
+
+body {
+  background: var(--primary-background);
+}
+
+span{
+  cursor: pointer;
+}
+
+#addStudentButton{
+  height: 30px;
+  width: 30px;
+}
+
+#search{
+margin-bottom: 25px;
+margin-top: 25px;
+}
+
+#search > input[type="text"]{
+  width: 200px;
+  height: 26px;
+}
+
+#NameInput{
+  width: 300px;
+  height: 26px;
+}
+
+
+
+#name{
+  text-align: left;
+}
+
+td{
+ text-align: center;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.courses-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1600px;
+  gap: 20px;
+}
+
+.course-name {
+  font-size: 20px;
+  color: var(--primary-text);
+  margin-top: 10px;
+}
+
+.navBar {
+  width: 100%;
+  height: 100%;
+}
+
+.button-style {
+  width: 300px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  color: var(--button-text);
+  background-color: var(--button-background);
+  border: 2px solid var(--border-color);
+  border-radius: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.button-style:hover {
+  background-color: var(--button-hover);
+}
+
+#newCourseButton {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  background-color: var(--icon-background);
+  color: var(--primary-text);
+  font-size: 100px;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 150px;
+}
+
+#newCourseButton:hover {
+  background-color: var(--icon-hover);
+}
+
+#modal,
+#editModal {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--secondary-background);
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.error {
+  color: var(--error-text);
+  font-size: 12px;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: var(--error-text);
+  cursor: pointer;
+}
+
+.delete-button{
+  cursor: pointer;
+font-size: 25px;
+}
+
+.edit-button{
+  cursor: pointer;
+font-size: 25px;
+}
+
+td{
+  height: 25px;
+}
+#buttons{
+position: absolute;
+right: 2vw;
+}

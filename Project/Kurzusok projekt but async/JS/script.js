@@ -83,26 +83,29 @@ const showModal = () => {
 
 const closeModal = modalId => document.getElementById(modalId).style.display = 'none';
 
-const submitCourse = () => {
+const submitCourse = async () => {
   const courseName = document.getElementById("courseNameInput").value.trim();
   if (courseName && !courses.some((course) => course.name === courseName)) {
-    fetch("https://vvri.pythonanywhere.com/api/courses", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name: courseName }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Course postolva:", data, data.id);
-        fetchDataAndDrawCourses();
-        closeModal("modal");
-      })
-      .catch((error) => console.error("Error posting course:", error));
+    try {
+      const response = await fetch("https://vvri.pythonanywhere.com/api/courses", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: courseName }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to post course.");
+      }
+
+      const data = await response.json();
+      console.log("Course posted:", data, data.id);
+      fetchDataAndDrawCourses();
+      closeModal("modal");
+    } catch (error) {
+      console.error("Error posting course:", error);
+    }
   } else {
-    document
-      .getElementById("courseNameInput")
-      .parentNode.querySelector(".error").innerText =
-      "Ilyen kurzus már létezik";
+    document.getElementById("courseNameInput").parentNode.querySelector(".error").innerText = "This course already exists.";
   }
 };
 
@@ -166,34 +169,37 @@ const deleteStudent = async (button) => {
   }
 };
 
-const addStudent = () => {
+const addStudent = async () => {
   const studentName = document.getElementById("NameInput").value.trim();
   const studentNameError = document.getElementById("studentNameERROR");
 
   if (studentName) {
-    const isDuplicateStudent = students.some(
-      (student) => student.name === studentName
-    );
+    const isDuplicateStudent = students.some(student => student.name === studentName);
+
     if (!isDuplicateStudent) {
       students.push(studentName);
-      fetch("https://vvri.pythonanywhere.com/api/students", {
-        method: "POST",
-        headers: {
-          accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name: studentName, course_id: currentCourse }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          const newRow = `<tr><td id="name">${data.name}</td><td id="buttons"><div><span class="edit-button" onclick="editStudentName(this, '${data.name}', ${data.id})" data-sid="${data.id}">✎</span><span class="delete-button" onclick="deleteStudent(this)" data-sid="${data.id}">&#128465;</span></div></td></tr>`;
-          document.getElementById("studentList").innerHTML += newRow;
-          fetchDataAndDrawCourses();
-        })
-        .catch((error) => console.error("Error:", error));
-      studentNameError.innerText = "";
+      try {
+        const response = await fetch("https://vvri.pythonanywhere.com/api/students", {
+          method: "POST",
+          headers: {
+            accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name: studentName, course_id: currentCourse }),
+        });
+        if (!response.ok) {
+          throw new Error("Failed to add student.");
+        }
+        const data = await response.json();
+        const newRow = `<tr><td id="name">${data.name}</td><td id="buttons"><div><span class="edit-button" onclick="editStudentName(this, '${data.name}', ${data.id})" data-sid="${data.id}">✎</span><span class="delete-button" onclick="deleteStudent(this)" data-sid="${data.id}">&#128465;</span></div></td></tr>`;
+        document.getElementById("studentList").innerHTML += newRow;
+        fetchDataAndDrawCourses();
+      } catch (error) {
+        console.error("Error:", error);
+        studentNameError.innerText = "";
+      }
     } else {
-      studentNameError.innerText = "Ez a diák már létezik";
+      studentNameError.innerText = "This student already exists.";
     }
   } else {
     studentNameError.innerText = "";

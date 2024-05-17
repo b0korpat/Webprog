@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Courses</title>
+  <link rel="stylesheet" href="CSS/style.css">
+
+</head>
+
+<body>
+  <div class="container">
+    <div id="search">
+      <input type="text" id="searchInput" placeholder="Keresés..." />
+      <span onclick="search()">🔍</span>
+    </div>
+
+    <div id="coursesDIV" class="courses-container"></div>
+
+    <button id="newCourseButton" onclick="showModal()">+</button>
+    <div id="modal" class="modal">
+      <span class="closeButton" onclick="closeModal('modal')">✖</span>
+      <h1>Új kurzos hozzáadása</h1>
+
+      <label for="courseNameInput">Adja meg a kurzus nevét</label>
+      <input type="text" id="courseNameInput" placeholder="Kurzus neve....">
+      <p class="error" id="courseNameERROR"></p>
+      <button id="submitButton" onclick="submitCourse();" disabled><span>&#43;</span></button>
+    </div>
+
+
+    <div id="editModal" class="modal">
+      <span class="closeButton" onclick="closeModal('editModal')">✖</span>
+      <h1 id="modalTitle">Szerkesztés</h1>
+
+      <div>
+        <input type="text" id="NameInput" placeholder="Adja meg a diák nevét">
+        <button id="addStudentButton" onclick="addStudent()"><span>&#43;</span></button>
+        <p class="error" id="studentNameERROR"></p>
+      </div>
+
+      <table>
+        <tbody id="studentList"></tbody>
+      </table>
+    </div>
+    <script src="JS/script.js"></script>
+</body>
+
+</html>
