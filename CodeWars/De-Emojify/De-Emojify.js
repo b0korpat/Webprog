@@ -1,5 +1,5 @@
 function deEmojify(emojiString) {
-    const emoteMap = {
+    const emotes = {
             ':)': '0',
             ':D': '1',
             '>(': '2',
@@ -20,7 +20,7 @@ function deEmojify(emojiString) {
             const emotesInChain = chain.split(' ');
     
             for (let emote of emotesInChain) {
-                asciiCode += emoteMap[emote];
+                asciiCode += emotes[emote];
             }
     
             result += String.fromCharCode(parseInt(asciiCode, 10));
