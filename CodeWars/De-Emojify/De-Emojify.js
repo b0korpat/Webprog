@@ -27,4 +27,4 @@ function deEmojify(emojiString) {
         }
     
         return result;
-    }s
+    }
