@@ -35,6 +35,7 @@ function saveToToplist(username, points) {
 
 function showCombinedPoints() {
     if (currentUserData) {
+        document.getElementById("results").innerHTML = ``
         let languagePoints = '';
         let pointSum = 0;
         for (const language in currentUserData.ranks.languages) {
