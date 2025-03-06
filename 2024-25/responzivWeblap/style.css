@@ -1,0 +1,34 @@
+.redbar{
+    height: 100px;
+    display: flex;
+}
+
+.gray-box{
+    background-color: lightgray;
+    width: 150px;
+    height: 20px;
+    margin: 25px;
+    margin-top: 35px;
+    padding: 15px;
+}
+.gray-box2{
+    background-color: lightgray;
+    width: 120px;
+    height: 40px;
+}
+
+
+.bluebar{
+    background-color: blue;
+    color: white;
+    height: 70vh;
+
+
+}
+.greenbar{
+    height: 70vh;
+}
+
+.centerImg{
+    border: 1px solid red;
+}
