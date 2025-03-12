@@ -1,0 +1,51 @@
+﻿<Window x:Class="_2_szamnegyes_wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_2_szamnegyes_wpf"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+   <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+       
+        <Grid Grid.Row="0" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            
+            <Label Name="Cell00" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" />
+            <Label Name="Cell01" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" />
+            <Label Name="Cell02" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" />
+
+            <Label Name="Cell10" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" />
+            <Label Name="Cell11" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" />
+            <Label Name="Cell12" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" />
+
+            <Label Name="Cell20" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" />
+            <Label Name="Cell21" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" />
+            <Label Name="Cell22" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" />
+        </Grid>
+       
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <Button Content="A" Click="ButtonA_Click" Margin="5" />
+            <Button Content="B" Click="ButtonB_Click" Margin="5" />
+            <Button Content="C" Click="ButtonC_Click" Margin="5" />
+            <Button Content="D" Click="ButtonD_Click" Margin="5" />
+        </StackPanel>
+       
+        <Button Content="Nullázás" Grid.Row="2" Click="ResetTable" HorizontalAlignment="Center" Margin="10"/>
+    </Grid>
+</Window>
